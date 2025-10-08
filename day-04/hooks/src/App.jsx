@@ -1,4 +1,6 @@
-import UseState from "./hooks/UseState";
+import UseState from "./Hooks-lifeycle/Usestate";
+
+
 
 const App = () => {
   return (
@@ -8,4 +10,5 @@ const App = () => {
   );
 };
 
-export default App;
+
+export default App
