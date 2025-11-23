@@ -1,18 +1,26 @@
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
 import Carousel from "./components/Carousel";
-import About from "./components/About";
-import Packages from "./components/Packages";
+// import About from "./components/About";
+// import Packages from "./components/Packages";
+// import Testimonials from "./components/Testimonials";
+// import Accordion from "./components/Accordion";
+// import Footer from "./components/Footer";
 const App = () => {
   return (
     <>
-      <header>
+      {/* <header>
         <Navbar />
-      </header>
+      </header> */}
       <main>
         <Carousel />
-        <About />
-        <Packages />
+        {/* <About /> */}
+        {/* <Packages /> */}
+        {/* <Testimonials /> */}
+        {/* <Accordion /> */}
       </main>
+      {/* <footer>
+        <Footer />
+      </footer> */}
     </>
   );
 };
