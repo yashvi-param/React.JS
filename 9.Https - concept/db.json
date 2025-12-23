@@ -1,0 +1,216 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Smartphone",
+      "price": 699,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/3/3a/IPhone_14_Pro.png",
+      "description": "A handheld device used for calling, internet browsing, and mobile applications."
+    },
+    {
+      "id": 2,
+      "name": "Laptop",
+      "price": 999,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6f/MacBook_Pro_14.png",
+      "description": "A portable computer suitable for work, study, and entertainment."
+    },
+    {
+      "id": 3,
+      "name": "Headphones",
+      "price": 199,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Beats_Studio3_Wireless_Headphones.png",
+      "description": "A device worn over the ears to listen to audio privately."
+    },
+    {
+      "id": 4,
+      "name": "Smartwatch",
+      "price": 299,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Apple_Watch_Series_6.png",
+      "description": "A wearable device that offers fitness tracking and notifications."
+    },
+    {
+    "id": 5,
+    "name": "Smartwatch",
+    "price": 299,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Apple_Watch_Series_7.png",
+    "description": "A wearable device for fitness tracking and notifications."
+  },
+  {
+    "id": 6,
+    "name": "Wireless Headphones",
+    "price": 199,
+   "image": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Sony_WH-1000XM4.png",
+    "description": "Audio device used for private listening."
+  },
+  {
+   "id": 7,
+    "name": "Bluetooth Speaker",
+    "price": 149,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/4f/JBL_Bluetooth_speaker.jpg",
+    "description": "A wireless speaker for playing music."
+  },
+  {
+    "id": 8,
+    "name": "Digital Camera",
+    "price": 899,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Canon_EOS_5D_Mark_IV.jpg",
+    "description": "Used to capture high-quality photos and videos."
+  },
+  {
+    "id": 9,
+    "name": "Printer",
+    "price": 180,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Inkjet_printer.jpg",
+    "description": "Prints documents and images onto paper."
+  },
+  {
+    "id": 10,
+    "name": "Scanner",
+    "price": 160,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Flatbed_scanner.jpg",
+    "description": "Converts physical documents into digital format."
+  },
+  {
+    "id": 11,
+    "name": "Wi-Fi Router",
+    "price": 130,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Wireless_router.jpg",
+    "description": "Provides wireless internet connectivity."
+  },
+  {
+    "id": 12,
+    "name": "Keyboard",
+    "price": 70,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Computer_keyboard.jpg",
+    "description": "Used for typing text and commands."
+  },
+  {
+    "id": 13,
+    "name": "Mouse",
+    "price": 50,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Computer_mouse.jpg",
+    "description": "A pointing device used to control the cursor."
+  },
+  {
+    "id": 14,
+    "name": "Power Bank",
+    "price": 60,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Power_bank.jpg",
+    "description": "Portable charger for electronic devices."
+  },
+  {
+    "id": 15,
+    "name": "External Hard Drive",
+    "price": 120,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/0f/External_hard_drive.jpg",
+    "description": "Stores and backs up digital data."
+  },
+  {
+    "id": 16,
+    "name": "Gaming Console",
+    "price": 499,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/77/PlayStation_5.png",
+    "description": "Used for playing video games."
+  },
+  {
+    "id": 17,
+    "name": "Microwave Oven",
+    "price": 250,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/45/Microwave_oven.jpg",
+    "description": "Used for quick heating and cooking food."
+  },
+  {
+    "id": 18,
+    "name": "Refrigerator",
+    "price": 1100,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Refrigerator.jpg",
+    "description": "Keeps food and beverages fresh."
+  },
+  {
+    "id": 19,
+    "name": "Washing Machine",
+    "price": 900,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Washing_machine.jpg",
+    "description": "Automatically washes clothes."
+  },
+  {
+    "id": 20,
+    "name": "Air Conditioner",
+    "price": 1300,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Air_conditioner.jpg",
+    "description": "Cools indoor spaces."
+  },
+  {
+    "id": 21,
+    "name": "Vacuum Cleaner",
+    "price": 400,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Vacuum_cleaner.jpg",
+    "description": "Removes dust and dirt from floors."
+  },
+  {
+    "id": 22,
+    "name": "Electric Iron",
+    "price": 90,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Electric_iron.jpg",
+    "description": "Removes wrinkles from clothes."
+  },
+  {
+    "id": 23,
+    "name": "Projector",
+    "price": 650,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/82/Digital_projector.jpg",
+    "description": "Displays visuals on a large screen."
+  },
+  {
+    "id": 24,
+    "name": "UPS",
+    "price": 200,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3a/UPS_device.jpg",
+    "description": "Provides backup power supply."
+  },
+  {
+    "id": 25,
+    "name": "Calculator",
+    "price": 40,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Calculator.jpg",
+    "description": "Performs mathematical calculations."
+  },
+  {
+    "id": 26,
+    "name": "DVD Player",
+    "price": 120,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/6c/DVD_player.jpg",
+    "description": "Plays DVDs and media discs."
+  },
+  {
+    "id": 27,
+    "name": "Remote Control",
+    "price": 25,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Remote_control.jpg",
+    "description": "Controls electronic devices wirelessly."
+  },
+  {
+    "id": 28,
+    "name": "CCTV Camera",
+    "price": 300,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/0a/CCTV_camera.jpg",
+    "description": "Used for security surveillance."
+  },
+  {
+    "id": 29,
+    "name": "Smart Door Lock",
+    "price": 350,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/6/63/Smart_lock.jpg",
+    "description": "Provides keyless door access."
+  },
+  {
+    "id": 30,
+    "name": "Modem",
+    "price": 110,
+    "image": "https://upload.wikimedia.org/wikipedia/commons/2/2d/DSL_modem.jpg",
+    "description": "Connects a network to the internet."
+  }
+]
+
+} 
+
