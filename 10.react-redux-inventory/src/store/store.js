@@ -1,12 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit'
-import inventoryReducer from '../features/product/productSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import productSlice from "../futures/Products/productSlice";
 
-export const store = configureStore({
-  reducer: {
-    inventory: productslice,
-  },
+const store = configureStore({
+    reducer:{
+        product :productSlice,
+    }
 })
-
 
 
 export default store;
