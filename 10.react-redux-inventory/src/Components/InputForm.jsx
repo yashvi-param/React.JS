@@ -1,85 +1,77 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { addProduct } from "../features/product/productSlice";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../futures/Products/productSlice";
 
-const InputForm = () => {
+const ProductForm = () => {
+  const [product, setProduct] = useState({
+    name: "",
+    price: "",
+    qty: 10,
+    category: "",
+  });
 
-    const [product, setProduct] = useState({
-        name: "",
-        price: "",
-        category: "",
-        qty: 10,
+  const dispatch = useDispatch();
+
+  const handleChange = (identifier, e) => {
+    setProduct((prev) => {
+      return {
+        ...prev,
+        [identifier]: e.target.value,
+      };
     });
-    const dispatch = useDispatch();
+  };
 
-    const handleChange = (field, e) => {
-        setProduct((prev) => {
-            return {
-                ...prev,
-                [field]: e.target.value,
-            }
-        })
-    };
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        const productsData = {
-            id: new Date().getTime(),
-            product,
-        };
+    dispatch(
+      addProduct({
+        id: new Date().getTime(),
+        ...product,
+      }),
 
-        dispatch(addProduct(productsData));
-
-        setProduct({
-            name: "",
-            price: "",
-            category: "",
-            qty:10,
-        });
-
-        alert("product added");
-    };
-
-    return (
-        <>
-            <form onSubmit={handleOnSubmit}>
-                <input
-                    type="text"
-                    placeholder="Product Name"
-                    value={product.name}
-                    onChange={(e) => handleChange("name", e)}
-                />
-                <br />
-
-                <input
-                    type="number"
-                    placeholder="Price"
-                    value={product.price}
-                    onChange={(e) => handleChange("price", e)}
-                />
-                <br />
-
-                <input
-                    type="text"
-                    placeholder="Category"
-                    value={product.category}
-                    onChange={(e) => handleChange("category", e)}
-                />
-                <br />
-
-                <input
-                    type="number"
-                    placeholder="Quantity"
-                    value={product.qty}
-                    onChange={(e) => handleChange("qty", e)}
-                />
-                <br />
-
-                <button type="submit">Submit</button>
-                <br />
-            </form>
-        </>
+      setProduct({ name: "", price: "", qty: "", category: "" })
     );
+
+    alert("product added");
+  };
+
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="name"
+          value={product.name}
+          onChange={(e) => handleChange("name", e)}
+        />
+        <br />
+        <input
+          type="number"
+          placeholder="price"
+          value={product.price}
+          onChange={(e) => handleChange("price", e)}
+        />
+        <br />
+        <input
+          type="number"
+          placeholder="Quantity"
+          value={product.qty}
+          onChange={(e) => handleChange("qty", e)}
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="category"
+          value={product.category}
+          onChange={(e) => handleChange("category", e)}
+        />
+        <br />
+
+        <button type="submit">add product</button>
+      </form>
+    </>
+  );
 };
 
-export default InputForm;
+export default ProductForm;
