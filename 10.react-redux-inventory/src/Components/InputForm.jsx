@@ -5,7 +5,7 @@ import {
     addProduct,
     updateProduct,
     setUpdateState,
-} from "../futures/Products/productSlice";
+} from "../features/products/ProductSlice";
 
 const InputForm = () => {
     const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const InputForm = () => {
             dispatch(setUpdateState(null));
             alert("product updated");
         } else {
-            
+
             dispatch(
                 addProduct({
                     id: new Date().getTime(),

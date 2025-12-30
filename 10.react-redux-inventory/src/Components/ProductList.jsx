@@ -1,48 +1,107 @@
 
-import Table from "react-bootstrap/Table";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteProduct, setUpdateState } from "../futures/Products/productSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    addProduct,
+    updateProduct,
+    setUpdateState,
+} from "../futures/Products/productSlice";
 
-const ProductList = () => {
-    const products = useSelector((state) => state.product.products);
+const InputForm = () => {
     const dispatch = useDispatch();
+    const updateState = useSelector((state) => state.product.updateState);
 
-    const handleDelete = (id) => {
-        dispatch(deleteProduct(id));
+    const [product, setProduct] = useState({
+        name: "",
+        price: "",
+        category: "",
+        qty: 10,
+    });
+
+    const handleChange = (field, e) => {
+        setProduct((prev) => ({
+            ...prev,
+            [field]: e.target.value,
+        }));
     };
 
-    const handleUpdate = (prod) => {
-        dispatch(setUpdateState(prod))
-    }
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+
+        if (updateState) {
+
+            dispatch(
+                updateProduct({
+                    id: updateState.id,
+                    product: product,
+                })
+            );
+            dispatch(setUpdateState(null));
+            alert("product updated");
+        } else {
+
+            dispatch(
+                addProduct({
+                    id: new Date().getTime(),
+                    product: product,
+                })
+            );
+            alert("product added");
+        }
+
+        setProduct({
+            name: "",
+            price: "",
+            category: "",
+            qty: 10,
+        });
+    };
+
+    useEffect(() => {
+        if (updateState) {
+            setProduct(updateState.product);
+        }
+    }, [updateState]);
+
     return (
-        <Table bordered striped hover>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {products.map((prod) => (
-                    <tr key={prod.id}>
-                        <td>{prod.id}</td>
-                        <td>{prod.product.name}</td>
-                        <td>{prod.product.price}</td>
-                        <td>{prod.product.category}</td>
-                        <td>{prod.product.qty}</td>
-                        <td>
-                            <button onClick={() => handleUpdate(prod)}>Update</button>
-                            <button onClick={() => handleDelete(prod.id)}>Delete</button>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </Table>
+        <form onSubmit={handleOnSubmit}>
+            <input
+                type="text"
+                placeholder="Product Name"
+                value={product.name}
+                onChange={(e) => handleChange("name", e)}
+            />
+            <br />
+
+            <input
+                type="number"
+                placeholder="Price"
+                value={product.price}
+                onChange={(e) => handleChange("price", e)}
+            />
+            <br />
+
+            <input
+                type="text"
+                placeholder="Category"
+                value={product.category}
+                onChange={(e) => handleChange("category", e)}
+            />
+            <br />
+
+            <input
+                type="number"
+                placeholder="Quantity"
+                value={product.qty}
+                onChange={(e) => handleChange("qty", e)}
+            />
+            <br />
+
+            <button type="submit">
+                {updateState ? "Update" : "Submit"}
+            </button>
+        </form>
     );
 };
 
-export default ProductList;
+export default InputForm;
