@@ -1,12 +1,10 @@
-import React from "react";
-import Product from "./Components/Product";
+import React from 'react'
+import Product from './Components/Product'
 
 const App = () => {
   return (
-    <>
-      <Product />
-    </>
-  );
-};
+    <Product />
+  )
+}
 
-export default App;
+export default App
