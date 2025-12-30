@@ -1,54 +1,48 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct } from "../features/product/productSlice";
+
+import Table from "react-bootstrap/Table";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteProduct, setUpdateState } from "../futures/Products/productSlice";
 
 const ProductList = () => {
-  const product = useSelector((state) => state.product.products);
+    const products = useSelector((state) => state.product.products);
+    const dispatch = useDispatch();
 
-  console.log("product", product);
+    const handleDelete = (id) => {
+        dispatch(deleteProduct(id));
+    };
 
-  const dispatch = useDispatch();
-
-  const handleDelete = (id) => {
-    dispatch(deleteProduct(id));
-  };
-
-  return (
-    <>
-      <table border={1}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>name</th>
-            <th>price</th>
-            <th>qty</th>
-            <th>category</th>
-            <th colSpan={2}>action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {product.length <= 0 ? (
-            <tr>
-              <td>no data found</td>
-            </tr>
-          ) : (
-            product.map((prod) => (
-              <tr key={prod.id}>
-                <td>{prod.id}</td>
-                <td>{prod.name}</td>
-                <td>{prod.price}</td>
-                <td>{prod.qty}</td>
-                <td>{prod.category}</td>
-                <td>
-                  <button onClick={() => handleDelete(prod.id)}>delete</button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-    </>
-  );
+    const handleUpdate = (prod) => {
+        dispatch(setUpdateState(prod))
+    }
+    return (
+        <Table bordered striped hover>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {products.map((prod) => (
+                    <tr key={prod.id}>
+                        <td>{prod.id}</td>
+                        <td>{prod.product.name}</td>
+                        <td>{prod.product.price}</td>
+                        <td>{prod.product.category}</td>
+                        <td>{prod.product.qty}</td>
+                        <td>
+                            <button onClick={() => handleUpdate(prod)}>Update</button>
+                            <button onClick={() => handleDelete(prod.id)}>Delete</button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </Table>
+    );
 };
 
 export default ProductList;
