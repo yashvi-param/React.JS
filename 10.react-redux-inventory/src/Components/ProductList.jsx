@@ -1,107 +1,99 @@
-
-import { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    addProduct,
-    updateProduct,
-    setUpdateState,
-} from "../futures/Products/productSlice";
+  deleteProduct,
+  setUpdateState,
+} from "../features/product/ProductSlice";
 
-const InputForm = () => {
-    const dispatch = useDispatch();
-    const updateState = useSelector((state) => state.product.updateState);
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 
-    const [product, setProduct] = useState({
-        name: "",
-        price: "",
-        category: "",
-        qty: 10,
-    });
+import { FaBoxOpen } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { AiOutlineProduct } from "react-icons/ai";
 
-    const handleChange = (field, e) => {
-        setProduct((prev) => ({
-            ...prev,
-            [field]: e.target.value,
-        }));
-    };
+const ProductList = () => {
+  const product = useSelector((state) => state.product.products);
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
+  console.log("product", product);
 
-        if (updateState) {
+  const dispatch = useDispatch();
 
-            dispatch(
-                updateProduct({
-                    id: updateState.id,
-                    product: product,
-                })
-            );
-            dispatch(setUpdateState(null));
-            alert("product updated");
-        } else {
-
-            dispatch(
-                addProduct({
-                    id: new Date().getTime(),
-                    product: product,
-                })
-            );
-            alert("product added");
-        }
-
-        setProduct({
-            name: "",
-            price: "",
-            category: "",
-            qty: 10,
-        });
-    };
-
-    useEffect(() => {
-        if (updateState) {
-            setProduct(updateState.product);
-        }
-    }, [updateState]);
-
-    return (
-        <form onSubmit={handleOnSubmit}>
-            <input
-                type="text"
-                placeholder="Product Name"
-                value={product.name}
-                onChange={(e) => handleChange("name", e)}
-            />
-            <br />
-
-            <input
-                type="number"
-                placeholder="Price"
-                value={product.price}
-                onChange={(e) => handleChange("price", e)}
-            />
-            <br />
-
-            <input
-                type="text"
-                placeholder="Category"
-                value={product.category}
-                onChange={(e) => handleChange("category", e)}
-            />
-            <br />
-
-            <input
-                type="number"
-                placeholder="Quantity"
-                value={product.qty}
-                onChange={(e) => handleChange("qty", e)}
-            />
-            <br />
-
-            <button type="submit">
-                {updateState ? "Update" : "Submit"}
-            </button>
-        </form>
-    );
+  return (
+    <Container>
+      <Row>
+        <Col>
+          <Card className="p-4 shadow m-2">
+            {product.length <= 0 ? (
+              <>
+                <div className="text-center">
+                  <FaBoxOpen fontSize={50} />
+                  <h3>No Data Found</h3>
+                  <p>Please Add some data to start</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <h3>
+                  <AiOutlineProduct fontSize={30} /> Product Data
+                </h3>
+                <Table striped bordered hover>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Category</th>
+                      <th>Total Price</th>
+                      <th colSpan={2} className="text-center">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {product.map((prod, index) => (
+                      <tr key={prod.id}>
+                        <td> {index + 1} </td>
+                        <td>{prod.name}</td>
+                        <td>{prod.price}</td>
+                        <td>{prod.qty}</td>
+                        <td>{prod.category}</td>
+                        <td>{prod.price * prod.qty}</td>
+                        <td>
+                          {
+                            <Button
+                              variant="outline-warning"
+                              onClick={() => dispatch(setUpdateState(prod))}
+                            >
+                              <MdEdit fontSize={18} />
+                            </Button>
+                          }
+                        </td>
+                        <td>
+                          <Button
+                            variant="outline-danger"
+                            onClick={() => dispatch(deleteProduct(prod.id))}
+                          >
+                            <MdDelete fontSize={18} />
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </>
+            )}
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
-export default InputForm;
+export default ProductList;
