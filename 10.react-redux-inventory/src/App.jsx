@@ -1,6 +1,8 @@
 import React from "react";
-import ProductForm from "./Components/InputForm";
-import ProductList from "./Components/ProductList";
+import ProductForm from "./components/ProductForm";
+import ProductList from "./components/ProductList";
+import InventoryStats from "./components/InventoryStats";
+
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -17,6 +19,7 @@ const App = () => {
             <h1 className="text-center mt-3">
               <HiCubeTransparent fontSize={50} /> Inventory Management System
             </h1>
+            <InventoryStats />
             <ProductForm />
             <ProductList />
           </Col>
