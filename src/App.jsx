@@ -1,20 +1,12 @@
-import React from 'react'
-import Header from './components/Header'
-import Quiz from './components/Quiz'
-import "./index.css"
+import React from "react";
+import UserLists from "./components/UserLists";
 
 const App = () => {
   return (
     <>
-    <header>
-      <Header/>
-    </header>
-    <main>
-      <Quiz/>
-    </main>
+      <UserLists />
     </>
-   
-  )
-}
+  );
+};
 
-export default App
+export default App;
