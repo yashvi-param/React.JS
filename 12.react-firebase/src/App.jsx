@@ -1,11 +1,12 @@
-import Auth from "./pages/Auth";
-import StudentForm from "./pages/StudentForm";
+import React from "react";
+import Auth from "./Auth/auth";
 
-export default function App() {
+const App = () => {
   return (
     <>
       <Auth />
-      <StudentForm />
     </>
   );
-}
+};
+
+export default App;

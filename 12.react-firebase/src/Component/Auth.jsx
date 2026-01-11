@@ -1,101 +1,76 @@
-import { useState } from "react";
-import { Card, Form, Button, Container, Alert } from "react-bootstrap";
-import { auth } from "../Firebase/config";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from "firebase/auth";
-import { FcGoogle } from "react-icons/fc";
+import React, { useState } from "react";
+
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [isLogin, setIsLogin] = useState("");
 
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInput = (identifier, e) => {
+    setData((prev) => {
+      return {
+        ...prev,
+        [identifier]: e.target.value,
+      };
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
     try {
-      if (isLogin) {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert("Login Successful");
-      } else {
-        await createUserWithEmailAndPassword(auth, email, password);
-        alert("Signup Successful");
-      }
-    } catch (err) {
-      setError(err.message);
+        
+    } catch (error) {
+        
     }
   };
 
-
   return (
-    <Container className="mt-5">
-      <div className="d-flex justify-content-center">
-        <Card className="p-4 shadow-sm" style={{ width: "360px" }}>
-          <h4 className="text-center mb-3">
-            {isLogin ? "Login" : "Create Account"}
-          </h4>
-
-          {error && <Alert variant="danger">{error}</Alert>}
-
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-
-            <Button type="submit" variant="success" className="w-100 mb-2">
-              {isLogin ? "Login" : "Signup"}
-            </Button>
-          </Form>
-
-          <Button
-            onClick={""}
-            variant="light"
-            className="w-100 border d-flex align-items-center justify-content-center gap-2"
-          >
-            <FcGoogle size={22} />
-            Continue with Google
-          </Button>
-
-          <div className="text-center mt-3">
-            {isLogin ? (
-              <>
-                New user?{" "}
-                <Button variant="link" onClick={() => setIsLogin(false)}>
-                  Create Account
-                </Button>
-              </>
-            ) : (
-              <>
-                Already have account?{" "}
-                <Button variant="link" onClick={() => setIsLogin(true)}>
-                  Login
-                </Button>
-              </>
-            )}
-          </div>
-        </Card>
-      </div>
-    </Container>
+    <>
+      <Container className="mt-5">
+        <Row className="d-flex justify-content-center">
+          <Col md={6}>
+            <Form className="border p-3" onSubmit={handleSubmit}>
+              <h2 className="text-center">{isLogin ? "Login" : "Signin"}</h2>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="name@example.com"
+                  onChange={(e) => handleInput("email", e)}
+                />
+              </Form.Group>
+              <Form.Group
+                className="mb-4"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => handleInput("password", e)}
+                />
+              </Form.Group>
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <Button className="w-50 mb-3" type="submit"> {isLogin ? "Login" : "Signin"} </Button>
+                <Button className="w-50">{isLogin ? "Welcome" : "Create Account"}</Button>
+              </div>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
-}
+};
 
 export default Auth;
