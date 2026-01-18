@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
-import { trips } from "../../data/TripsData";
+import { trips } from "../../data/TripData";
 import { useNavigate } from "react-router-dom";
 
 const TripsData = () => {
