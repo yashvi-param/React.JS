@@ -1,11 +1,11 @@
 import React from "react";
-import Auth from "./Auth/auth";
+import Auth from "./auth/Auth";
 
 const App = () => {
   return (
-    <>
+    <div>
       <Auth />
-    </>
+    </div>
   );
 };
 
