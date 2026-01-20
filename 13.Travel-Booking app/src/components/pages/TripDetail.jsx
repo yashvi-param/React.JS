@@ -1,12 +1,18 @@
-import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Badge, ListGroup, Accordion, Button, Carousel } from "react-bootstrap";
-import { ListData } from "../../data/TripData";
+import { data } from "../../data/TripData";
+import { context } from "../../context/context";
 
-const TripDetail = () => {
+const TourDetail = () => {
   const { id } = useParams();
-  const trip = ListData.find((item) => item.id === Number(id));
+  const navigate = useNavigate();
+  
+  const { user } = useContext(context);
+  
+  const tour = data.find((item) => item.id === Number(id));
 
-  if (!trip) {
+  if (!tour) {
     return (
       <Container className="py-5 text-center">
         <h2>Tour not found</h2>
@@ -14,18 +20,34 @@ const TripDetail = () => {
     );
   }
 
+  const handleBook = () => {
+    if (user) {
+      navigate(`/booking/${id}`);
+    } else {
+      navigate('/login', { state: { from: `/booking/${id}` } });
+    }
+  };
+
   return (
-    <Container className="py-5">
-      <Row className="mb-5">
+    <Container className="py-3">
+      <Row className="mb-3">
         <Col>
           <h1 className="display-4 fw-bold mb-2">{tour.name}</h1>
           <p className="fs-5 text-muted">
             <i className="bi bi-geo-alt-fill me-2"></i>
             {tour.destination}
           </p>
-          <Badge bg="warning" text="dark">
-            ⭐ {tour.rating} Rating
-          </Badge>
+          <div className="d-flex gap-2 p-2 my-2">
+            <Badge className="p-2" bg="warning" text="light">
+              ⭐ {tour.rating} Rating
+            </Badge>
+            <Badge className="p-2" bg="danger" text="light">
+              {tour.tourInfo.difficulty}
+            </Badge>
+            <Badge className="p-2" bg="info" text="white">
+              {tour.tourInfo.bestSeason} Best Season
+            </Badge>
+          </div>
         </Col>
       </Row>
 
@@ -132,7 +154,7 @@ const TripDetail = () => {
                   </p>
                 </div>
 
-                <Button className="w-100 mb-3" size="lg">
+                <Button className="w-100 mb-3" size="lg" onClick={handleBook}>
                   Book Now
                 </Button>
                 <Button variant="outline-primary" className="w-100" size="lg">
@@ -147,4 +169,4 @@ const TripDetail = () => {
   );
 };
 
-export default TripDetail;
+export default TourDetail;

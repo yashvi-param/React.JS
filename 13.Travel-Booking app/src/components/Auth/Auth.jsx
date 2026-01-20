@@ -1,128 +1,127 @@
-import { useState } from "react";
-
-import {Container,Row,Col,Form,Card,Button }from "react-bootstrap";
-
-import { auth, googleProvider } from "../../../Firebase/config";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import React, { useState } from "react";
+import { auth, googleProvider } from "../../Firebase/config";
+    
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Card,
+  Alert,
+} from "react-bootstrap";
 
 const Auth = () => {
-    const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
 
-    const [user, setUser] = useState("");
+  const [authData, setAuthData] = useState({
+    email: "",
+    password: "",
+  });
 
-    const [authData, setAuthData] = useState({
-        email: "",
-        password: "",
+  const [error, setError] = useState(null);
+
+  const handleAuthData = (e, identifier) => {
+    setAuthData((prevData) => {
+      return {
+        ...prevData,
+        [identifier]: e.target.value,
+      };
     });
+  };
 
-    const [loading, setLoading] = useState(false);
+  console.log("authdata", authData);
 
-    const handleChange = (identifier, e) => {
-        setAuthData((prev) => {
-            return {
-                ...prev,
-                [identifier]: e.target.value,
-            };
-        });
-    };
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
 
-    const handleForm = async (e) => {
-        e.preventDefault();
+    try {
+      if (isLogin) {
+        const result = await signInWithEmailAndPassword(
+          auth,
+          authData.email,
+          authData.password,
+        );
 
-        setLoading(true);
-        try {
-            if (isLogin) {
-                const result = await signInWithEmailAndPassword(
-                    auth,
-                    authData.email,
-                    authData.password
-                );
-                setUser(result.user.email);
-            } else {
-                const result = await createUserWithEmailAndPassword(
-                    auth,
-                    authData.email,
-                    authData.password
-                );
-                setUser(result.user.email);
-            }
-        } catch (error) {
-            console.log(error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+        console.log("user", result);
+      } else {
+        const result = await createUserWithEmailAndPassword(
+          auth,
+          authData.email,
+          authData.password,
+        );
+      }
+    } catch (error) {
+      setError(error);
+    }
+  };
 
-    const handleGoogleLogin = async () => {
-        setLoading(true);
-        try {
-            const result = await signInWithPopup(auth, googleProvider);
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
 
-            setUser(result.user.email);
-        } catch (error) {
-            console.log(error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
+      console.log("user", result.email);
+    } catch (error) {
+      setError(error);
+    }
+  };
 
-    return (
-        <>
-            <Container>
-                <Row>
-                    <Col>
-                        <Form
-                            className="d-flex justify-content-center align-items-center"
-                            style={{ height: "100vh" }}
-                            onSubmit={handleForm}
-                        >
-                            <Card className="shadow p-3 " style={{ width: "30%" }}>
-                                <h4 className="text-center">{isLogin ? "Login" : "Sign up"}</h4>
-                                {user && <p className="alert alert-primary">{user}</p>}
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control
-                                        value={authData.email}
-                                        onChange={(e) => handleChange("email", e)}
-                                        placeholder="Email"
-                                    ></Form.Control>
-                                </Form.Group>
+  return (
+    <Container>
+      <Row>
+        <Col>
+          <Card className="shadow  py-2" style={{ width: "400px", }}>
+            <Card.Title className="text-center">
+              {isLogin ? "Login" : "Sign up"}
+            </Card.Title>
+            <Form
+              className="d-flex justify-content-center align-items-center flex-column"
+              onSubmit={handleFormSubmit}
+            >
+              {error && <Alert variant="danger">{error}</Alert>}
 
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control
-                                        value={authData.password}
-                                        placeholder="Password"
-                                        onChange={(e) => handleChange("password", e)}
-                                    ></Form.Control>
-                                </Form.Group>
-
-                                <Button
-                                    className="btn btn-primary btn-success"
-                                    type="submit"
-                                    disabled={loading}
-                                >
-                                    {isLogin ? "login" : "sign up"}
-                                </Button>
-
-                                <Button onClick={handleGoogleLogin} disabled={loading} className="mt-3 btn-danger" >
-                                    Login With Google
-                                </Button>
-
-                                <Button
-                                    className="btn btn-primary mt-3"
-                                    onClick={() => setIsLogin(!isLogin)}
-                                    disabled={loading}
-                                >
-                                    {isLogin ? "New User ? Sign Up" : "Already User ? Login"}
-                                </Button>
-                            </Card>
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
-        </>
-    );
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={authData.email}
+                  onChange={(e) => handleAuthData(e, "email")}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={authData.password}
+                  onChange={(e) => handleAuthData(e, "password")}
+                ></Form.Control>
+              </Form.Group>
+              <div className="d-grid">
+                <Button type="submit" className="mb-2">
+                  {isLogin ? "Login" : "create new account"}
+                </Button>
+                <br />
+                <Button variant="outline-secondary" onClick={handleGoogleLogin}>
+                  Login With Google
+                </Button>
+                <br />
+                <Button variant="link" onClick={() => setIsLogin(!isLogin)}>
+                  {isLogin
+                    ? "do not have account ? "
+                    : "already have an account"}
+                </Button>
+              </div>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default Auth;
